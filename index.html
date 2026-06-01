@@ -777,6 +777,7 @@
     .num-grande {
         font-size: 2rem;
     }
+}
 /* --- SECCIÓN GALERÍA DEFINTIVA --- */
 .seccion-galeria {
     padding: 60px 20px;
@@ -843,9 +844,6 @@
         margin-bottom: 20px;
     }
 }
-.music-player{
-    display:none;
-}
 
 /* Opcional: Para que tenga una animación al aparecer */
 .seccion-foto-grande {
@@ -907,7 +905,6 @@
 }
 
 
-}
 
 </style>
 </head>
@@ -1232,28 +1229,18 @@
   
     <script>
         // LÓGICA DEL PRELOADER
-document
-.getElementById("openInvitation")
-.addEventListener("click",()=>{
+document.getElementById("openInvitation").addEventListener("click", () => {
 
-    // Ocultar portada
-    document
-    .getElementById("preloader")
-    .classList.add("hide");
+    document.getElementById("preloader").classList.add("hide");
 
-    // Mostrar botón música
-    document
-    .getElementById("music-player")
-    .style.display = "flex";
+    const audio = document.getElementById("musica-boda");
+    const boton = document.getElementById("boton-musica");
 
-    // Iniciar música
-    const audio = document.getElementById("bg-music");
+    boton.style.display = "flex";
 
     audio.play().then(() => {
-        document
-        .getElementById("music-player")
-        .classList.add("music-playing");
-    });
+        boton.classList.add("music-playing");
+    }).catch(err => console.log(err));
 
 });
         // RECARGA DE IMÁGENES
@@ -1271,22 +1258,15 @@ document
         const musica = document.getElementById("musica-boda");
         const btnMusica = document.getElementById("boton-musica");
         
-        if (btnMusica && musica) {
-            btnMusica.addEventListener("click", () => {
-                if (musica.paused) {
-                    musica.play()
-                        .then(() => {
-                            btnMusica.classList.add("music-playing");
-                        })
-                        .catch(error => {
-                            console.error("El navegador bloqueó la reproducción automática:", error);
-                        });
-                } else {
-                    musica.pause();
-                    btnMusica.classList.remove("music-playing");
-                }
-            });
-        }
+    btnMusica.addEventListener("click", () => {
+    if (musica.paused) {
+        musica.play();
+        btnMusica.classList.add("music-playing");
+    } else {
+        musica.pause();
+        btnMusica.classList.remove("music-playing");
+    }
+});
 
         // SUGERIR CANCIÓN - NUEVA LÓGICA PARA GOOGLE SHEETS
         async function sugerirCancion() {
@@ -1400,18 +1380,7 @@ document
                 btn.disabled = false;
             }
         }
-        function toggleMusic() {
-        const audio = document.getElementById("bg-music");
-        const player = document.getElementById("music-player");
-        
-        if (audio.paused) {
-            audio.play();
-            player.classList.add("music-playing");
-        } else {
-            audio.pause();
-            player.classList.remove("music-playing");
-        }
-    }
+  
 
     </script>
 </body>
